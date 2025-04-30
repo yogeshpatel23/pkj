@@ -5,15 +5,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { getAccount, getPositions, updatePrice } from "./actions";
+import { getAccount, getPositions } from "./actions";
 import { PositionDataTable } from "@/components/positions/positon-data-table";
 import { positionColumns } from "@/components/positions/PositionColumn";
 import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import NewTrade from "@/components/transaction/new-trade";
-import { Button } from "@/components/ui/button";
-import { RefreshCcw } from "lucide-react";
 import RefreshButton from "@/components/RefreshButton";
 
 export default async function Home() {

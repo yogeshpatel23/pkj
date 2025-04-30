@@ -15,7 +15,7 @@ if (!process.env.MONGODBNAME) {
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODBNAME = process.env.MONGODBNAME;
 
-let globalWithMongoose = global as typeof globalThis & {
+const globalWithMongoose = global as typeof globalThis & {
   mongoose: {
     conn: null | mongoose.Connection;
     promise: null | Promise<mongoose.Connection>;

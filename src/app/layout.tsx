@@ -4,7 +4,6 @@ import "./globals.css";
 import { authOptions } from "@/lib/authOptions";
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/components/SessionProvider";
-import SingoutButton from "@/components/SingoutButton";
 import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
@@ -24,7 +23,6 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  addposition,
 }: Readonly<{
   children: React.ReactNode;
   addposition: React.ReactNode;

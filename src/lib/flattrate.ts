@@ -1,4 +1,4 @@
-const baseUrl = "";
+// const baseUrl = "";
 
 export async function searchSymbol(text: string, id: string, token: string) {
   try {
