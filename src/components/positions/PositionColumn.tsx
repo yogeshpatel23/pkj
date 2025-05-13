@@ -2,7 +2,7 @@
 
 import { IPosition } from "@/models/Position.model";
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, Trash2Icon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +26,7 @@ import SipForm from "../transaction/sip-form";
 import BookProfit from "../transaction/bookProfit";
 import MakeBidForm from "../transaction/makebid-forrm";
 import { TransactionList } from "../transaction/transactionList";
+import DeletePositionForm from "./delete-position-form";
 
 export interface IPositionColumn extends IPosition {
   avgPrice: number;
@@ -219,7 +220,7 @@ export const positionColumns: ColumnDef<IPositionColumn>[] = [
           <Dialog open={isSipOpen} onOpenChange={setIsSipOpen}>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Add SIP</DialogTitle>
+                <DialogTitle>Make SIP</DialogTitle>
                 <DialogDescription>Make SIP to your Position</DialogDescription>
               </DialogHeader>
               <SipForm position={position} />
@@ -247,4 +248,11 @@ export const positionColumns: ColumnDef<IPositionColumn>[] = [
       );
     },
   },
+  {
+    id: 'delete',
+    cell: ({row}) => {
+      const position = row.original;
+      return <DeletePositionForm id={position._id!} />
+    }
+  }
 ];

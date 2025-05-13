@@ -484,6 +484,19 @@ export async function bookProfit(formState: any, formdata: FormData) {
   revalidatePath("/");
 }
 
+export async function deletePosition(formState: any,formdata:FormData) {
+  try {
+    const id = formdata.get('id')?.toString() || ""
+    if(id === '') return { error : 'Someting missing'}
+    await dbConnect();
+    await Position.findByIdAndDelete(id)
+  } catch (error) {
+    console.log('Deleting Position error',error)
+    return { error: 'Someting went wrong'}
+  }
+  revalidatePath('/')
+}
+
 export async function getPositions() {
   const session: any = await getServerSession(authOptions);
   const user: string = session?.user.id;
