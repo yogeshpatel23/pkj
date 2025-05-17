@@ -41,6 +41,7 @@ export const positionColumns: ColumnDef<IPositionColumn>[] = [
   {
     accessorKey: "symbol",
     header: "Symbol",
+    enableHiding: false,
   },
   {
     accessorKey: "totalBought",
@@ -186,6 +187,7 @@ export const positionColumns: ColumnDef<IPositionColumn>[] = [
   },
   {
     id: "actions",
+    enableHiding: false,
     cell: ({ row }) => {
       const position = row.original;
       const [isSipOpen, setIsSipOpen] = useState(false);
@@ -249,10 +251,11 @@ export const positionColumns: ColumnDef<IPositionColumn>[] = [
     },
   },
   {
-    id: 'delete',
-    cell: ({row}) => {
+    id: "delete",
+    enableHiding: false,
+    cell: ({ row }) => {
       const position = row.original;
-      return <DeletePositionForm id={position._id!} />
-    }
-  }
+      return <DeletePositionForm id={position._id!} />;
+    },
+  },
 ];
