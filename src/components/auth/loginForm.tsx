@@ -15,6 +15,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const loginFormSchema = z.object({
   email: z.string().email(),
@@ -23,6 +24,7 @@ const loginFormSchema = z.object({
 
 const LoginForm = () => {
   const router = useRouter();
+  const [logging, setLoging] = useState(false)
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -32,11 +34,13 @@ const LoginForm = () => {
   });
 
   async function onSubmit(data: z.infer<typeof loginFormSchema>) {
+    setLoging(true)
     const res = await signIn("credentials", { ...data, redirect: false });
     if (res?.ok) {
       router.push("/");
     }
     console.log(res);
+    setLoging(false)
   }
   return (
     <Form {...form}>
@@ -68,7 +72,7 @@ const LoginForm = () => {
           )}
         />
         <Button variant="outline" type="submit">
-          Sign In
+          {logging ? 'Signing In': 'Sign In'}
         </Button>
       </form>
     </Form>
