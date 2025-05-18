@@ -65,7 +65,11 @@ export default async function Home() {
           <RefreshButton account={account} positions={positions} />
         </CardHeader>
         <CardContent>
-          <PositionDataTable columns={positionColumns} data={data} />
+          <PositionDataTable
+            columns={positionColumns}
+            data={data}
+            showColumnVisibility={true}
+          />
         </CardContent>
       </Card>
     </div>

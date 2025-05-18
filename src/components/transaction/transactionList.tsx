@@ -11,5 +11,11 @@ export const TransactionList = ({ id }: { id: string }) => {
     return () => {};
   }, []);
 
-  return <PositionDataTable columns={transactionColounm} data={data} />;
+  return (
+    <PositionDataTable
+      columns={transactionColounm}
+      data={data}
+      showColumnVisibility={false}
+    />
+  );
 };

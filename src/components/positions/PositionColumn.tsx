@@ -186,6 +186,46 @@ export const positionColumns: ColumnDef<IPositionColumn>[] = [
     ),
   },
   {
+    accessorKey: "tgtprc",
+    header: () => <div className="text-right">Target Price</div>,
+    cell: ({ row }) => {
+      const invstmnet = parseFloat(row.getValue("totalInvestment"));
+      const minProfit = invstmnet * 0.01 > 1000 ? invstmnet * 0.01 : 1000;
+      const tgtdiff = minProfit / parseInt(row.getValue("totalQuantity"));
+      const tgtprc = parseFloat(row.getValue("avgPrice")) + tgtdiff;
+      return <div className="text-right font-medium">{tgtprc.toFixed(2)}</div>;
+    },
+  },
+  {
+    accessorKey: "bookprofit",
+    header: () => <div className="text-right">Profit Qty</div>,
+    cell: ({ row }) => {
+      const invstmnet = parseFloat(row.getValue("totalInvestment"));
+      const minProfit = invstmnet * 0.01 > 1000 ? invstmnet * 0.01 : 1000;
+      const tgtdiff = minProfit / parseInt(row.getValue("totalQuantity"));
+      const tgtprc = parseFloat(row.getValue("avgPrice")) + tgtdiff;
+      const tgtqty = minProfit / tgtprc;
+      if (tgtprc < parseFloat(row.getValue("currentPrice")))
+        return (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button size="sm" className="cursor-pointer" variant="ghost">
+                Book Profit
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Book Profit</DialogTitle>
+                <DialogDescription></DialogDescription>
+              </DialogHeader>
+              <BookProfit position={row.original} />
+            </DialogContent>
+          </Dialog>
+        );
+      return <div className="text-right font-medium">{Math.round(tgtqty)}</div>;
+    },
+  },
+  {
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
