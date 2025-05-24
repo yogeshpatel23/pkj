@@ -24,7 +24,7 @@ const loginFormSchema = z.object({
 
 const LoginForm = () => {
   const router = useRouter();
-  const [logging, setLoging] = useState(false)
+  const [logging, setLoging] = useState(false);
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -34,13 +34,13 @@ const LoginForm = () => {
   });
 
   async function onSubmit(data: z.infer<typeof loginFormSchema>) {
-    setLoging(true)
+    setLoging(true);
     const res = await signIn("credentials", { ...data, redirect: false });
     if (res?.ok) {
       router.push("/");
     }
     console.log(res);
-    setLoging(false)
+    setLoging(false);
   }
   return (
     <Form {...form}>
@@ -72,7 +72,7 @@ const LoginForm = () => {
           )}
         />
         <Button variant="outline" type="submit">
-          {logging ? 'Signing In': 'Sign In'}
+          {logging ? "Signing In" : "Sign In"}
         </Button>
       </form>
     </Form>

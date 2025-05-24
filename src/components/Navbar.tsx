@@ -15,7 +15,20 @@ import GetTokenForm from "./account/GetTokenForm";
 const Navbar = ({ session }: { session: any | null }) => {
   return (
     <nav className="container mx-auto flex justify-between items-center">
-      <h1 className="text-2xl">Paiso Ka Jungal</h1>
+      <div className="flex gap-1">
+        <Link href="/" className="text-2xl">
+          InvestoTrack
+        </Link>
+        <span className="text-xs text-blue-300">by VYStocks</span>
+      </div>
+      <ul className="flex gap-4">
+        <li>
+          <Link href="/pkj">Paiso ka Jangal</Link>
+        </li>
+        <li>
+          <Link href="#">LIFO</Link>
+        </li>
+      </ul>
       <div>
         {session && (
           <div className="flex items-center">

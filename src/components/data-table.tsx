@@ -39,6 +39,8 @@ export function PositionDataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
     notionalpl: false,
     currentMarketValue: false,
+    totalInvestment: false,
+    totalProfit: false,
   });
   const table = useReactTable({
     data,

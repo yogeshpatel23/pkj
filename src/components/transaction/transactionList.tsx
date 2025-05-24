@@ -1,6 +1,6 @@
 import { getTatansaction } from "@/app/actions";
 import React, { useEffect, useState } from "react";
-import { PositionDataTable } from "../positions/positon-data-table";
+import { PositionDataTable } from "../data-table";
 import { transactionColounm } from "./TransactionColumn";
 
 export const TransactionList = ({ id }: { id: string }) => {
