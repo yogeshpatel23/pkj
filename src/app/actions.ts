@@ -237,7 +237,7 @@ export async function getToken(formState: any, formdata: FormData) {
       message: "Something went wrong",
     };
   }
-  revalidatePath("/");
+  revalidatePath("/", "layout");
 }
 
 export async function addNewPosition(prevState: any, formdata: FormData) {
@@ -307,7 +307,7 @@ export async function addNewPosition(prevState: any, formdata: FormData) {
     console.error("Error adding new trade:", error);
   }
   // Revalidate the current path
-  revalidatePath("/");
+  revalidatePath("/pkj");
 
   // Revalidate the specific path
   // revalidatePath("/about");
@@ -366,7 +366,7 @@ export async function makeSip(formState: any, formdata: FormData) {
       },
     };
   }
-  revalidatePath("/");
+  revalidatePath("/pkj");
 }
 
 export async function makeBid(formState: any, formdata: FormData) {
@@ -424,7 +424,7 @@ export async function makeBid(formState: any, formdata: FormData) {
       },
     };
   }
-  revalidatePath("/");
+  revalidatePath("/pkj");
 }
 
 export async function bookProfit(formState: any, formdata: FormData) {
@@ -481,20 +481,20 @@ export async function bookProfit(formState: any, formdata: FormData) {
       },
     };
   }
-  revalidatePath("/");
+  revalidatePath("/pkj");
 }
 
-export async function deletePosition(formState: any,formdata:FormData) {
+export async function deletePosition(formState: any, formdata: FormData) {
   try {
-    const id = formdata.get('id')?.toString() || ""
-    if(id === '') return { error : 'Someting missing'}
+    const id = formdata.get("id")?.toString() || "";
+    if (id === "") return { error: "Someting missing" };
     await dbConnect();
-    await Position.findByIdAndDelete(id)
+    await Position.findByIdAndDelete(id);
   } catch (error) {
-    console.log('Deleting Position error',error)
-    return { error: 'Someting went wrong'}
+    console.log("Deleting Position error", error);
+    return { error: "Someting went wrong" };
   }
-  revalidatePath('/')
+  revalidatePath("/pkj");
 }
 
 export async function getPositions() {
@@ -588,5 +588,5 @@ export async function updatePrice(account: IAccount, positions: IPosition[]) {
       console.log(err);
     }
   });
-  revalidatePath("/");
+  revalidatePath("/pkj");
 }

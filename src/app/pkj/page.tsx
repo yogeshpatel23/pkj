@@ -58,12 +58,14 @@ export default async function PaisoKaJangle() {
   return (
     <div className="container mx-auto">
       <NewTrade account={account} />
-      <Card>
-        <CardHeader className="relative">
+      <Card className="relative">
+        <CardHeader className="absolute">
           <CardTitle>Portfolio</CardTitle>
-          <CardDescription>Here you can manage your Portfolio</CardDescription>
-          <RefreshButton account={account} positions={positions} />
+          <CardDescription className="sr-only">
+            Here you can manage your Portfolio
+          </CardDescription>
         </CardHeader>
+        <RefreshButton account={account} positions={positions} />
         <CardContent>
           <PositionDataTable
             columns={positionColumns}

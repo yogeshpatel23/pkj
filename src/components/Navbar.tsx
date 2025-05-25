@@ -23,10 +23,14 @@ const Navbar = ({ session }: { session: any | null }) => {
       </div>
       <ul className="flex gap-4">
         <li>
-          <Link href="/pkj">Paiso ka Jangal</Link>
+          <Link className="hover:border-b-2 border-blue-500 pb-1" href="/pkj">
+            Paiso ka Jangal
+          </Link>
         </li>
         <li>
-          <Link href="#">LIFO</Link>
+          <Link className="hover:border-b-2 border-blue-500 pb-1" href="/lifo">
+            LIFO
+          </Link>
         </li>
       </ul>
       <div>

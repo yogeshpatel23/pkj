@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { updatePrice } from "@/app/actions";
 import { RefreshCcw } from "lucide-react";
@@ -13,14 +13,20 @@ const RefreshButton = ({
   account: IAccount;
   positions: IPosition[];
 }) => {
+  const [working, setWorking] = useState(false);
   return (
     <Button
       variant="outline"
       size="icon"
-      onClick={() => updatePrice(account, positions)}
+      onClick={async () => {
+        setWorking(true);
+        await updatePrice(account, positions);
+        setWorking(false);
+      }}
+      disabled={working}
       className="absolute right-8 top-0"
     >
-      <RefreshCcw />
+      <RefreshCcw className={working ? "animate-spin" : ""} />
     </Button>
   );
 };

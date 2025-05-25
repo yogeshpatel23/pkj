@@ -2,7 +2,6 @@
 import { useActionState } from "react";
 import { Button } from "../ui/button";
 import { HourglassIcon, Trash2Icon } from "lucide-react";
-import { deletePosition } from "@/app/actions";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,14 +13,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { deleteLifoPosition } from "@/app/lifo-action";
 
 const initialState = {
   error: "",
 };
-
-const DeletePositionForm = ({ id }: { id: string }) => {
+const DeleteLifoPosition = ({ id }: { id: string }) => {
   const [formState, formAction, pending] = useActionState(
-    deletePosition,
+    deleteLifoPosition,
     initialState
   );
   return (
@@ -57,4 +56,4 @@ const DeletePositionForm = ({ id }: { id: string }) => {
   );
 };
 
-export default DeletePositionForm;
+export default DeleteLifoPosition;
