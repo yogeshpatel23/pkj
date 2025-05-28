@@ -1,15 +1,11 @@
 "use client";
 
-import { format } from "date-fns";
-
 import { makeBid } from "@/app/actions";
-import React, { useActionState, useState } from "react";
+import React, { useActionState } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { IPosition } from "@/models/Position.model";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
-import { Calendar } from "../ui/calendar";
 
 const initialState: { error: any } = {
   error: {},
@@ -20,7 +16,7 @@ const MakeBidForm = ({ position }: { position: IPosition }) => {
     makeBid,
     initialState
   );
-  const [date, setDate] = useState<Date>();
+
   return (
     <form action={formAction} className="w-96 mx-auto space-y-4">
       <input type="hidden" name="id" value={position._id} />
@@ -38,27 +34,12 @@ const MakeBidForm = ({ position }: { position: IPosition }) => {
         <Label className="mb-2" htmlFor="tradeDate">
           Trade Date
         </Label>
-        <input
-          type="hidden"
+        <Input
+          type="date"
+          defaultValue={new Date().toISOString().split("T")[0]}
           name="tradeDate"
-          value={date ? date.toDateString() : ""}
+          required
         />
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline" className="w-full justify-start">
-              {date ? format(date, "dd/MM/yyyy") : "Select a date"}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              initialFocus
-              required
-            />
-          </PopoverContent>
-        </Popover>
         <span className="text-red-500 text-sm">
           {formState?.error.tradeDate?.[0]}
         </span>

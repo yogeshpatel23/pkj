@@ -1,7 +1,5 @@
 "use client";
 
-import { format } from "date-fns";
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,12 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
 import { addNewPosition } from "@/app/actions";
 import { useActionState, useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
@@ -34,7 +26,7 @@ export default function NewTrade({ account }: { account: IAccount }) {
     addNewPosition,
     initialState
   );
-  const [date, setDate] = useState<Date>();
+
   const [token, setToken] = useState("");
   const [symbol, setSymbol] = useState<string>("");
   const [symbolList, setSymbolList] = useState<any[]>([]);
@@ -121,26 +113,12 @@ export default function NewTrade({ account }: { account: IAccount }) {
             <Label className="mb-2" htmlFor="tradeDate">
               Trade Date
             </Label>
-            <input
-              type="hidden"
+            <Input
               name="tradeDate"
-              value={date ? date.toDateString() : ""}
+              defaultValue={new Date().toISOString().split("T")[0]}
+              type="date"
+              required
             />
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button variant="outline" className="w-full justify-start">
-                  {date ? format(date, "dd/MM/yyyy") : "Select a date"}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0">
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  required
-                />
-              </PopoverContent>
-            </Popover>
             <span className="text-red-500 text-sm">
               {formState?.error.tradeDate?.[0]}
             </span>

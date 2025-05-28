@@ -1,12 +1,9 @@
 "use client";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { useActionState, useEffect, useState } from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
-import { Calendar } from "../ui/calendar";
 import { searchSymbol } from "@/lib/flattrate";
 import { IAccount } from "@/models/Account.model";
 import { addLifoPositon } from "@/app/lifo-action";
@@ -20,7 +17,7 @@ const BuyForm = ({ account }: { account: IAccount }) => {
     addLifoPositon,
     initialState
   );
-  const [date, setDate] = useState<Date>();
+
   const [token, setToken] = useState("");
   const [symbol, setSymbol] = useState<string>("");
   const [symbolList, setSymbolList] = useState<any[]>([]);
@@ -88,28 +85,12 @@ const BuyForm = ({ account }: { account: IAccount }) => {
         <Label className="mb-2" htmlFor="date">
           Date
         </Label>
-        <input
-          type="hidden"
+        <Input
+          type="date"
           id="date"
           name="date"
-          value={date ? date.toDateString() : ""}
+          defaultValue={new Date().toISOString().split("T")[0]}
         />
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="outline" className="w-full justify-start">
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {date ? format(date, "dd/MM/yyyy") : "Select a date"}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              required
-            />
-          </PopoverContent>
-        </Popover>
         <span className="text-red-500 text-sm">
           {formState?.error.buyDate?.[0]}
         </span>
