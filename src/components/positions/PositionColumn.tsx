@@ -169,7 +169,11 @@ export const positionColumns: ColumnDef<IPositionColumn>[] = [
                 <DialogTitle>Make BID</DialogTitle>
                 <DialogDescription></DialogDescription>
               </DialogHeader>
-              <MakeBidForm position={row.original} />
+              <MakeBidForm
+                position={row.original}
+                qty={row.getValue("bidQty")}
+                price={row.getValue("currentPrice")}
+              />
             </DialogContent>
           </Dialog>
         ) : (
@@ -218,7 +222,11 @@ export const positionColumns: ColumnDef<IPositionColumn>[] = [
                 <DialogTitle>Book Profit</DialogTitle>
                 <DialogDescription></DialogDescription>
               </DialogHeader>
-              <BookProfit position={row.original} />
+              <BookProfit
+                position={row.original}
+                qty={tgtqty}
+                price={row.getValue("currentPrice")}
+              />
             </DialogContent>
           </Dialog>
         );

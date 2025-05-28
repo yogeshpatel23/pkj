@@ -11,7 +11,15 @@ const initialState: { error: any } = {
   error: {},
 };
 
-const MakeBidForm = ({ position }: { position: IPosition }) => {
+const MakeBidForm = ({
+  position,
+  qty,
+  price,
+}: {
+  position: IPosition;
+  qty: number;
+  price: number;
+}) => {
   const [formState, formAction, pending] = useActionState(
     makeBid,
     initialState
@@ -48,7 +56,7 @@ const MakeBidForm = ({ position }: { position: IPosition }) => {
         <Label className="mb-2" htmlFor="quantity">
           Quantity
         </Label>
-        <Input name="quantity" type="number" required />
+        <Input name="quantity" defaultValue={qty} type="number" required />
         <span className="text-red-500 text-sm">
           {formState?.error.quantity?.[0]}
         </span>
@@ -57,7 +65,7 @@ const MakeBidForm = ({ position }: { position: IPosition }) => {
         <Label className="mb-2" htmlFor="price">
           Price
         </Label>
-        <Input name="price" required />
+        <Input name="price" defaultValue={price.toFixed(2)} required />
         <span className="text-red-500 text-sm">
           {formState?.error.price?.[0]}
         </span>

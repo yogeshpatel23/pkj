@@ -40,7 +40,7 @@ export default async function RootLayout({
             </header>
             <main className="flex-grow p-4">{children}</main>
             <footer className="bg-gray-800 text-white p-4">
-              <p>&copy; 2023 Paiso Ka Jungal</p>
+              <p>&copy; 2025 InvestoTrack</p>
             </footer>
           </div>
         </SessionProvider>

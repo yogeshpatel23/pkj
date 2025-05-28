@@ -29,7 +29,7 @@ const Navbar = ({ session }: { session: any | null }) => {
         </li>
         <li>
           <Link className="hover:border-b-2 border-blue-500 pb-1" href="/lifo">
-            LIFO
+            ETF Shop
           </Link>
         </li>
       </ul>
