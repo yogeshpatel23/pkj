@@ -11,8 +11,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LifoBuyColumn } from "@/components/lifo/lifobuyColumn";
 import { PositionDataTable } from "@/components/data-table";
+import { LifoSellColumn } from "@/components/lifo/lifosellColumn";
 
 export default async function LifoPage() {
   const session = await getServerSession(authOptions);
@@ -31,26 +33,56 @@ export default async function LifoPage() {
   }
 
   const lifoPosition = await getLifoPosition();
+  const lifoOpenPositions = lifoPosition.filter((p) => !p.sellDate);
+  const lifoClosedPositions = lifoPosition.filter((p) => p.sellDate);
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto space-y-4">
+      <h2 className="text-2xl">ETF Shop</h2>
       <BuyForm account={account} />
-      <Card>
-        <CardHeader className="absolute w-72">
-          <CardTitle>Lifo Insvstment</CardTitle>
-          <CardDescription className="sr-only">
-            Here you can manage your Portfolio
-          </CardDescription>
-          {/* <RefreshButton account={account} positions={positions} /> */}
-        </CardHeader>
-        <CardContent>
-          <PositionDataTable
-            columns={LifoBuyColumn}
-            data={lifoPosition}
-            showColumnVisibility={true}
-          />
-        </CardContent>
-      </Card>
+      <Tabs defaultValue="openposition">
+        <TabsList>
+          <TabsTrigger value="openposition">Kharida Hua Maal</TabsTrigger>
+          <TabsTrigger value="closedposition">Bika Hua Maal</TabsTrigger>
+        </TabsList>
+        <TabsContent value="openposition">
+          <Card>
+            <CardHeader className="absolute w-72">
+              <CardTitle>Kharida Hua Maal</CardTitle>
+              <CardDescription className="sr-only">
+                List of hold items
+              </CardDescription>
+              {/* <RefreshButton account={account} positions={positions} /> */}
+            </CardHeader>
+            <CardContent>
+              <PositionDataTable
+                columns={LifoBuyColumn}
+                data={lifoOpenPositions}
+                showColumnVisibility={true}
+              />
+            </CardContent>
+          </Card>
+        </TabsContent>
+        {/* Sell positons tab */}
+        <TabsContent value="closedposition">
+          <Card>
+            <CardHeader className="absolute w-72">
+              <CardTitle>Bika Hua Maal</CardTitle>
+              <CardDescription className="sr-only">
+                List of sold items
+              </CardDescription>
+              {/* <RefreshButton account={account} positions={positions} /> */}
+            </CardHeader>
+            <CardContent>
+              <PositionDataTable
+                columns={LifoSellColumn}
+                data={lifoClosedPositions}
+                showColumnVisibility={true}
+              />
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

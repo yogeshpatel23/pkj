@@ -55,6 +55,41 @@ export async function addLifoPositon(prevSate: any, formdata: FormData) {
   revalidatePath("/lifo");
 }
 
+export async function sellLifoPosition(prevSate: any, formdata: FormData) {
+  try {
+    const id = formdata.get("id");
+    const sellDate = new Date(formdata.get("sellDate")?.toString() || "");
+    const sellPrice = formdata.get("sellPrice");
+    if (!id)
+      return {
+        stat: "notok",
+        message: "Daya kuch to gadbad hai",
+      };
+    await dbConnect();
+    const lifoPosition = await LifoPosition.findById(id);
+    console.log(lifoPosition);
+    if (lifoPosition.sellDate)
+      return {
+        stat: "notok",
+        message: `Position already closed on :${lifoPosition.sellDate.toDateString()}`,
+      };
+    lifoPosition.sellDate = sellDate;
+    lifoPosition.sellPrice = sellPrice;
+    lifoPosition.save();
+    revalidatePath("/lifo");
+    return {
+      stat: "ok",
+      message: "Successfully closed Position.",
+    };
+  } catch (error) {
+    console.log("error selling lifo pos", error);
+    return {
+      stat: "notok",
+      message: "Unable to sell now. Try later",
+    };
+  }
+}
+
 export async function getLifoPosition() {
   const session: any = await getServerSession(authOptions);
   const user: string = session?.user.id;
