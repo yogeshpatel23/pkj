@@ -27,7 +27,13 @@ const DeletePositionForm = ({ id }: { id: string }) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="ghost" type="button" disabled={pending} size="icon">
+        <Button
+          variant="ghost"
+          type="button"
+          disabled={pending}
+          size="icon"
+          className="cursor-pointer"
+        >
           {pending ? (
             <HourglassIcon className="animate-spin" />
           ) : (

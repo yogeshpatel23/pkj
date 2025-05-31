@@ -123,7 +123,7 @@ export const LifoBuyColumn: ColumnDef<ILifoPosition>[] = [
       const inta =
         days === 0
           ? 0
-          : (parseFloat(row.getValue("fundedAmount")) * 0.16) / days;
+          : ((parseFloat(row.getValue("fundedAmount")) * 0.16) / 365) * days;
       return <div className="text-right font-medium">{inta.toFixed(2)}</div>;
     },
   },

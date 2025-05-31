@@ -2,7 +2,12 @@
 
 import { IPosition } from "@/models/Position.model";
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal, Trash2Icon } from "lucide-react";
+import {
+  ArrowUpDownIcon,
+  MoreHorizontal,
+  PlusCircleIcon,
+  Trash2Icon,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -41,6 +46,25 @@ export const positionColumns: ColumnDef<IPositionColumn>[] = [
   {
     accessorKey: "symbol",
     header: "Symbol",
+    cell: ({ row }) => (
+      <div className="flex items-center">
+        {row.getValue("symbol")}
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button size="icon" className="cursor-pointer" variant="ghost">
+              <PlusCircleIcon />
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Make SIP</DialogTitle>
+              <DialogDescription>Make SIP to your Position</DialogDescription>
+            </DialogHeader>
+            <SipForm position={row.original} />
+          </DialogContent>
+        </Dialog>
+      </div>
+    ),
     enableHiding: false,
   },
   {
@@ -234,64 +258,65 @@ export const positionColumns: ColumnDef<IPositionColumn>[] = [
     },
   },
   {
-    id: "actions",
+    id: "transactions",
     enableHiding: false,
+    cell: ({ row }) => (
+      <div className="text-center">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button size="icon" variant="ghost" className="cursor-pointer">
+              <ArrowUpDownIcon />
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Transactions</DialogTitle>
+              <DialogDescription></DialogDescription>
+            </DialogHeader>
+            <TransactionList id={row.original._id!} />
+          </DialogContent>
+        </Dialog>
+      </div>
+    ),
+  },
+  {
+    id: "hactions",
     cell: ({ row }) => {
       const position = row.original;
-      const [isSipOpen, setIsSipOpen] = useState(false);
-      const [isProfitOpen, setIsProfitOpen] = useState(false);
-      const [istransOpen, setIsTransOpen] = useState(false);
-
       return (
         <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">
-                <span className="sr-only">Open Menu</span>
-                <MoreHorizontal className="size-4 " />
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button size="sm" variant="ghost" className="cursor-pointer">
+                Make Bid
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => setIsSipOpen(true)}>
-                Make SIP
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => setIsProfitOpen(true)}>
-                Book Profit
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => setIsTransOpen(true)}>
-                View Transaction
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <Dialog open={isSipOpen} onOpenChange={setIsSipOpen}>
+            </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Make SIP</DialogTitle>
-                <DialogDescription>Make SIP to your Position</DialogDescription>
+                <DialogTitle>Make Bid</DialogTitle>
+                <DialogDescription className="sr-only">
+                  Make Bid to your Position
+                </DialogDescription>
               </DialogHeader>
-              <SipForm position={position} />
+              <MakeBidForm
+                position={row.original}
+                qty={row.getValue("bidQty")}
+                price={row.getValue("currentPrice")}
+              />
             </DialogContent>
           </Dialog>
-          <Dialog open={isProfitOpen} onOpenChange={setIsProfitOpen}>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button size="sm" variant="ghost">
+                Book Profit
+              </Button>
+            </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Book Profit</DialogTitle>
                 <DialogDescription></DialogDescription>
               </DialogHeader>
               <BookProfit position={position} />
-            </DialogContent>
-          </Dialog>
-          <Dialog open={istransOpen} onOpenChange={setIsTransOpen}>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Transactions</DialogTitle>
-                <DialogDescription></DialogDescription>
-              </DialogHeader>
-              <TransactionList id={position._id!} />
             </DialogContent>
           </Dialog>
         </>

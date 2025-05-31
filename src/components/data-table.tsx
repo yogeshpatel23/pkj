@@ -24,6 +24,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useState } from "react";
+import {
+  ChevronFirst,
+  ChevronFirstIcon,
+  ChevronLast,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -41,6 +48,7 @@ export function PositionDataTable<TData, TValue>({
     currentMarketValue: false,
     totalInvestment: false,
     totalProfit: false,
+    hactions: false,
   });
   const table = useReactTable({
     data,
@@ -147,10 +155,18 @@ export function PositionDataTable<TData, TValue>({
         <Button
           variant="outline"
           size="sm"
+          onClick={() => table.firstPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          <ChevronFirst />
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          <ChevronLeft />
         </Button>
         <Button
           variant="outline"
@@ -158,7 +174,15 @@ export function PositionDataTable<TData, TValue>({
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          <ChevronRight />
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.lastPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          <ChevronLast />
         </Button>
       </div>
     </div>
