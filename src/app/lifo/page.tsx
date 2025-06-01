@@ -15,6 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LifoBuyColumn } from "@/components/lifo/lifobuyColumn";
 import { PositionDataTable } from "@/components/data-table";
 import { LifoSellColumn } from "@/components/lifo/lifosellColumn";
+import LifoRefreshButton from "@/components/LifoRefreshButton";
 
 export default async function LifoPage() {
   const session = await getServerSession(authOptions);
@@ -46,14 +47,17 @@ export default async function LifoPage() {
           <TabsTrigger value="closedposition">Bika Hua Maal</TabsTrigger>
         </TabsList>
         <TabsContent value="openposition">
-          <Card>
+          <Card className="relative">
             <CardHeader className="absolute w-72">
               <CardTitle>Kharida Hua Maal</CardTitle>
               <CardDescription className="sr-only">
                 List of hold items
               </CardDescription>
-              {/* <RefreshButton account={account} positions={positions} /> */}
             </CardHeader>
+            <LifoRefreshButton
+              account={account}
+              positions={lifoOpenPositions}
+            />
             <CardContent>
               <PositionDataTable
                 columns={LifoBuyColumn}

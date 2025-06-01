@@ -70,7 +70,7 @@ export function PositionDataTable<TData, TValue>({
   return (
     <div>
       {showColumnVisibility && (
-        <div className="flex mb-2">
+        <div className="flex mb-2 mr-14">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" className="ml-auto">

@@ -2,6 +2,8 @@
 
 import { authOptions } from "@/lib/authOptions";
 import dbConnect from "@/lib/dbConnect";
+import { getQuote } from "@/lib/flattrate";
+import { IAccount } from "@/models/Account.model";
 import LifoPosition, { ILifoPosition } from "@/models/LifoPosition.model";
 import { LifoPositionSchema } from "@/schema/lifoBuySchema";
 import { HydratedDocument, Types } from "mongoose";
@@ -140,5 +142,30 @@ export async function deleteLifoPosition(formState: any, formdata: FormData) {
     console.log("Deleting Position error", error);
     return { error: "Someting went wrong" };
   }
+  revalidatePath("/lifo");
+}
+
+export async function updateLifoPrice(
+  account: IAccount,
+  positions: ILifoPosition[]
+) {
+  positions.forEach(async (position) => {
+    const quote = await getQuote(
+      position.token,
+      account.userId,
+      account.token!
+    );
+    try {
+      const r = await LifoPosition.findByIdAndUpdate(
+        position._id,
+        {
+          cmp: quote.lp,
+        },
+        { new: true }
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  });
   revalidatePath("/lifo");
 }

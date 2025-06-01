@@ -102,6 +102,25 @@ export const LifoBuyColumn: ColumnDef<ILifoPosition>[] = [
     },
   },
   {
+    id: "lifogain",
+    header: () => <div className="text-right">LIFO Gain</div>,
+    cell: ({ row }) => {
+      const gain =
+        (row.original.cmp - row.original.buyPrice) * row.original.quantity;
+      return <div className="text-right font-medium">{gain.toFixed(2)}</div>;
+    },
+  },
+  {
+    id: "lifogainp",
+    header: () => <div className="text-right">LIFO Gain %</div>,
+    cell: ({ row }) => {
+      const gain =
+        ((row.original.cmp - row.original.buyPrice) / row.original.buyPrice) *
+        100;
+      return <div className="text-right font-medium">{gain.toFixed(2)} %</div>;
+    },
+  },
+  {
     id: "action",
     enableHiding: false,
     cell: ({ row }) => <LifoSellForm position={row.original} />,

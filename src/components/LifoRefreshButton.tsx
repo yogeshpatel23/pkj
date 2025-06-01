@@ -1,17 +1,17 @@
 "use client";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { updatePrice } from "@/app/actions";
 import { RefreshCcw } from "lucide-react";
 import { IAccount } from "@/models/Account.model";
-import { IPosition } from "@/models/Position.model";
+import { ILifoPosition } from "@/models/LifoPosition.model";
+import { updateLifoPrice } from "@/app/lifo-action";
 
-const RefreshButton = ({
+const LifoRefreshButton = ({
   account,
   positions,
 }: {
   account: IAccount;
-  positions: IPosition[];
+  positions: ILifoPosition[];
 }) => {
   const [working, setWorking] = useState(false);
   return (
@@ -20,7 +20,7 @@ const RefreshButton = ({
       size="icon"
       onClick={async () => {
         setWorking(true);
-        await updatePrice(account, positions);
+        await updateLifoPrice(account, positions);
         setWorking(false);
       }}
       disabled={working}
@@ -31,4 +31,4 @@ const RefreshButton = ({
   );
 };
 
-export default RefreshButton;
+export default LifoRefreshButton;
