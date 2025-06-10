@@ -1,5 +1,5 @@
 "use client";
-import React, { useActionState, useEffect } from "react";
+import React, { useActionState } from "react";
 import { getToken } from "@/app/actions";
 import { Button } from "../ui/button";
 // import { useToast } from "../ui/use-toast";
@@ -13,22 +13,8 @@ const GetTokenForm = ({ id }: { id: string }) => {
     getToken,
     initialState
   );
-  //   const { toast } = useToast();
-  useEffect(() => {
-    console.log(formState);
-    if (formState?.message && formState?.message != "") {
-      //   toast({
-      //     variant: "destructive",
-      //     title: "Error",
-      //     description: formState?.message,
-      //   });
-    }
-    if (formState) {
-      formState.message = "";
-    }
-  }, [formState?.message]);
   return (
-    <form action={formAction}>
+    <form action={formAction} className="flex flex-col">
       <input type="hidden" name="id" value={id} />
       <Button
         type="submit"
@@ -39,6 +25,7 @@ const GetTokenForm = ({ id }: { id: string }) => {
       >
         {pending ? "Generating..." : "Generate Token"}
       </Button>
+      <span className="text-[8px] text-red-500">{formState?.message}</span>
     </form>
   );
 };

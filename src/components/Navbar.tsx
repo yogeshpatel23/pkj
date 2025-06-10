@@ -35,15 +35,13 @@ const Navbar = ({ session }: { session: any | null }) => {
       </ul>
       <div>
         {session && (
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
+            <GetTokenForm id={session.user?.id} />
             <DropdownMenu>
               <DropdownMenuTrigger>{session.user?.name}</DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <GetTokenForm id={session.user?.id} />
-                </DropdownMenuItem>
                 <DropdownMenuItem>
                   <Link href="/account/edit">Edit Account</Link>
                 </DropdownMenuItem>

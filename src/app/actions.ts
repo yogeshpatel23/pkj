@@ -204,7 +204,7 @@ export async function getToken(formState: any, formdata: FormData) {
     const resData = await coderes.json();
     if (resData.emsg != "")
       return {
-        message: "Someting went wrong",
+        message: resData.emsg,
       };
 
     const rdUrl = new URLSearchParams(resData.RedirectURL.split("?")[1]);
@@ -221,7 +221,7 @@ export async function getToken(formState: any, formdata: FormData) {
         }),
       }
     );
-    //   if (response.status !== 200) throw new Error(await response.json());
+    // if (response.status !== 200) throw new Error(await response.json());
     const res = await response.json();
     if (res.stat === "Ok") {
       account.token = res.token;
