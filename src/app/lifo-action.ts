@@ -149,13 +149,13 @@ export async function updateLifoPrice(
   account: IAccount,
   positions: ILifoPosition[]
 ) {
-  positions.forEach(async (position) => {
-    const quote = await getQuote(
-      position.token,
-      account.userId,
-      account.token!
-    );
-    try {
+  async function processArray(account: IAccount, positions: ILifoPosition[]) {
+    for (const position of positions) {
+      const quote = await getQuote(
+        position.token,
+        account.userId,
+        account.token!
+      );
       const r = await LifoPosition.findByIdAndUpdate(
         position._id,
         {
@@ -163,9 +163,8 @@ export async function updateLifoPrice(
         },
         { new: true }
       );
-    } catch (err) {
-      console.log(err);
     }
-  });
-  revalidatePath("/lifo");
+  }
+  await processArray(account, positions);
+  revalidatePath("lifo");
 }

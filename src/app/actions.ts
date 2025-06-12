@@ -570,13 +570,14 @@ export async function getTatansaction(id: string) {
 }
 
 export async function updatePrice(account: IAccount, positions: IPosition[]) {
-  positions.forEach(async (position) => {
-    const quote = await getQuote(
-      position.token,
-      account.userId,
-      account.token!
-    );
-    try {
+  async function processArray(account: IAccount, positions: IPosition[]) {
+    for (const position of positions) {
+      const quote = await getQuote(
+        position.token,
+        account.userId,
+        account.token!
+      );
+
       const r = await Position.findByIdAndUpdate(
         position._id,
         {
@@ -584,9 +585,8 @@ export async function updatePrice(account: IAccount, positions: IPosition[]) {
         },
         { new: true }
       );
-    } catch (err) {
-      console.log(err);
     }
-  });
-  revalidatePath("/pkj");
+  }
+  await processArray(account, positions);
+  revalidatePath("pkj");
 }
