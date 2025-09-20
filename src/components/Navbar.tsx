@@ -22,7 +22,7 @@ const Navbar = ({ session }: { session: any | null }) => {
         <span className="text-xs text-blue-300">by VYStocks</span>
       </div>
       <ul className="flex gap-4">
-        <li>
+        {/* <li>
           <Link className="hover:border-b-2 border-blue-500 pb-1" href="/pkj">
             Paiso ka Jangal
           </Link>
@@ -31,7 +31,7 @@ const Navbar = ({ session }: { session: any | null }) => {
           <Link className="hover:border-b-2 border-blue-500 pb-1" href="/lifo">
             ETF Shop
           </Link>
-        </li>
+        </li> */}
       </ul>
       <div>
         {session && (

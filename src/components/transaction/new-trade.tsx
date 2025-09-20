@@ -39,7 +39,7 @@ export default function NewTrade({ account }: { account: IAccount }) {
       //   title: "Error",
       //   description: formState.errors.message,
       // });
-      console.log(formState);
+      // console.log(formState);
     }
   }, [formState?.error]);
 
