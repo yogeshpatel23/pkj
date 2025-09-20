@@ -17,7 +17,7 @@ const Navbar = ({ session }: { session: any | null }) => {
     <nav className="container mx-auto flex justify-between items-center">
       <div className="flex gap-1">
         <Link href="/" className="text-2xl">
-          InvestoTrack
+          Paiso Ka Jungle
         </Link>
         <span className="text-xs text-blue-300">by VYStocks</span>
       </div>
